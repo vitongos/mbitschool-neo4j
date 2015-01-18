@@ -1,0 +1,29 @@
+# Sample 1
+# ----------------------------------------------------------------------
+# ¿En cuántas películas ha participado Anthony Hopkins?
+
+MATCH (n {name: 'Anthony Hopkins'})-[:ACTS_IN]->(d) RETURN n, COUNT(d)
+
+# Sample 2
+# ----------------------------------------------------------------------
+# ¿Quiénes han dirigido a Gwyneth Paltrow?
+
+MATCH (n {name:'Gwyneth Paltrow'})-[:ACTS_IN]->()<-[:DIRECTED]-(d) RETURN DISTINCT d.name
+
+# Sample 3
+# ----------------------------------------------------------------------
+# ¿Cuántas actrices o películas comienza su nombre con 'Carrie'?
+
+MATCH (n) WHERE n.name =~ 'Carrie.*' OR n.title =~ 'Carrie.*' RETURN n
+
+# Sample 4
+# ----------------------------------------------------------------------
+# ¿Cuántas películas en su título contienen la palabra 'kill'?
+
+MATCH (n:Film) WHERE n.title =~ '(?i).*kill.*' RETURN n.title
+
+# Sample 5
+# ----------------------------------------------------------------------
+# ¿Cuáles películas ha dirigido Spielberg?
+
+MATCH (n)<-[:DIRECTED]-(d {name:'Steven Spielberg'}) RETURN n.name, n.genre ORDER BY n.runtime
