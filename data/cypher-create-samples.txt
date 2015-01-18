@@ -1,0 +1,33 @@
+# Sample 1
+# ----------------------------------------------------------------------
+# Incluir la película “All is Lost” http://www.imdb.com/title/tt2017038/
+
+CREATE (n {title:'All is Lost', description:'Deep into a solo voyage in the Indian Ocean, an unnamed man wakes to find his 39-foot yacht taking on water after a collision with a shipping container left floating on the high seas. With his navigation equipment and radio disabled, the man sails unknowingly into the path of a violent storm. Despite his success in patching the breached hull, his mariner’s intuition and a strength that belies his age, the man barely survives the tempest.', language : 'en', genre: 'Drama', studio: 'Lionsgate Films', runtime: 106 }) RETURN n
+
+# Relacionarla con el protagonista y con el director
+
+MATCH (a {name:'Robert Redford'}), (m {title:'All is Lost'}) CREATE (a)-[:ACTS_IN]->(m) RETURN a, m
+
+CREATE (n {name:'J.C. Chandor'}) RETURN n
+
+MATCH (d {name:'J.C. Chandor'}), (m {title:'All is Lost'}) CREATE (d)-[:DIRECTED]->(m) RETURN d, m
+
+
+# Sample 2
+# ----------------------------------------------------------------------
+# Incluir la película “Gravity” http://www.imdb.com/title/tt1454468/
+# y relacionarla con sus protagonistas
+
+MATCH (g { name:'George Clooney' }), (s { name:'Sandra Bullock' }) CREATE (g)-[:ACTS_IN]->(m {title:'Gravity', description:'A medical engineer and an astronaut work together to survive after an accident leaves them adrift in space. Dr. Ryan Stone is a brilliant medical engineer on her first shuttle mission, with veteran astronaut Matt Kowalsky. But on a seemingly routine spacewalk, disaster strikes. The shuttle is destroyed, leaving Stone and Kowalsky completely alone—tethered to nothing but each other and spiraling out into the blackness. The deafening silence tells them they have lost any link to Earth... and any chance for rescue. As fear turns to panic, every gulp of air eats away at what little oxygen is left. But the only way home may be to go further out into the terrifying expanse of space.', language : 'en', genre: 'Drama', studio: 'Warner Bros. Pictures', runtime: 90 })<-[:ACTS_IN]-(s) RETURN g, s, m
+
+# Relacionarla con el director
+
+MATCH (d {name:'Alfonso Cuarón'}), (m {title:'Gravity'}) CREATE (d)-[:DIRECTED]->(m) RETURN d, m
+
+
+# Sample 3
+# ----------------------------------------------------------------------
+# Incluir la película “Celda 211” http://www.imdb.com/title/tt1454468/
+# y relacionarla con el director y sus actores principales
+
+CREATE p = (d {name:'Daniel Monzón'})-[:DIRECTED]->(m {title:'Celda 211', description:'The story of two men on different sides of a prison riot - the inmate leading the rebellion and the young guard trapped in the revolt, who poses as a prisoner in a desperate attempt to survive the ordeal.', language : 'es', genre: 'Action', studio: 'Canal+ España', runtime: 113 })<-[:ACTS_IN]-(lt {name: 'Luis Tosar', birthplace: 'Lugo, Galicia, Spain'}), (aa {name: 'Alberto Ammann', birthplace: 'Córdoba, Argentina'})-[:ACTS_IN]->(m), (ar {name: 'Antonio Resines', birthplace: 'Torrelavega, Cantabria, Spain'})-[:ACTS_IN]->(m), (cb {name: 'Carlos Bardem', birthplace: 'Madrid, Spain'})-[:ACTS_IN]->(m) RETURN d, m, aa, ar, cb, lt
