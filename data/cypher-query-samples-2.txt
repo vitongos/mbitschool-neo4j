@@ -1,0 +1,18 @@
+# Sample 1
+# ----------------------------------------------------------------------
+# ¿Qué actores nacidos en Nigeria han trabajado con Keanu Reeves?
+
+MATCH (n {name:'Keanu Reeves'})-[:ACTS_IN]->()<-[:ACTS_IN]-(m) WHERE m.birthplace =~ '.*Nigeria' RETURN DISTINCT m
+
+# Sample 2
+# ----------------------------------------------------------------------
+# De entre los directores que tienen 10 o más películas, ¿cuáles son los 5 que, como promedio, las producen más largas?
+
+MATCH (d)-[:DIRECTED]->(m) WITH d, avg(m.runtime) AS rt, count(m.runtime) AS c WHERE c >= 10 RETURN d, ROUND(rt) ORDER BY rt DESC LIMIT 5
+
+# Sample 3
+# ----------------------------------------------------------------------
+# ¿Quiénes son los 10 directores que más aparecen en sus películas?
+
+MATCH (m)<-[:DIRECTED]-(a)-[:ACTS_IN]->(m) RETURN COUNT(*) AS c, a.name ORDER BY c DESC LIMIT 10
+
