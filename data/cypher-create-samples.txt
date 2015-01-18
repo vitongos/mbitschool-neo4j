@@ -27,7 +27,7 @@ MATCH (d {name:'Alfonso Cuarón'}), (m {title:'Gravity'}) CREATE (d)-[:DIRECTED]
 
 # Sample 3
 # ----------------------------------------------------------------------
-# Incluir la película “Celda 211” http://www.imdb.com/title/tt1454468/
+# Incluir la película “Celda 211” http://www.imdb.com/title/tt1242422/
 # y relacionarla con el director y sus actores principales
 
 CREATE p = (d {name:'Daniel Monzón'})-[:DIRECTED]->(m {title:'Celda 211', description:'The story of two men on different sides of a prison riot - the inmate leading the rebellion and the young guard trapped in the revolt, who poses as a prisoner in a desperate attempt to survive the ordeal.', language : 'es', genre: 'Action', studio: 'Canal+ España', runtime: 113 })<-[:ACTS_IN]-(lt {name: 'Luis Tosar', birthplace: 'Lugo, Galicia, Spain'}), (aa {name: 'Alberto Ammann', birthplace: 'Córdoba, Argentina'})-[:ACTS_IN]->(m), (ar {name: 'Antonio Resines', birthplace: 'Torrelavega, Cantabria, Spain'})-[:ACTS_IN]->(m), (cb {name: 'Carlos Bardem', birthplace: 'Madrid, Spain'})-[:ACTS_IN]->(m) RETURN d, m, aa, ar, cb, lt
